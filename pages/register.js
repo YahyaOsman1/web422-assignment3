@@ -12,28 +12,28 @@
 *
 ********************************************************************************/
 
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Card, Form, Button, Alert } from 'react-bootstrap';
-import PageHeader from '@/components/PageHeader';
-import { registerUser } from '@/lib/authenticate';
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { Card, Form, Button, Alert } from 'react-bootstrap'
+import PageHeader from '@/components/PageHeader'
+import { registerUser } from '@/lib/authenticate'
 
 export default function Register() {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
-  const [warning, setWarning] = useState('');
-  const router = useRouter();
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+  const [warning, setWarning] = useState('')
+  const router = useRouter()
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setWarning('');
+    e.preventDefault()
+    setWarning('')
 
     try {
-      await registerUser(user, password, password2);
-      router.push('/login'); 
+      await registerUser(user, password, password2)
+      router.push('/login')
     } catch (err) {
-      setWarning(err.message);
+      setWarning(err.message)
     }
   }
 
@@ -96,5 +96,5 @@ export default function Register() {
         </Card.Body>
       </Card>
     </>
-  );
+  )
 }

@@ -12,38 +12,36 @@
 *
 ********************************************************************************/
 
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Card, Form, Button, Alert } from 'react-bootstrap';
-import PageHeader from '@/components/PageHeader';
-import { authenticateUser } from '@/lib/authenticate';
-import { useAtom } from 'jotai';
-import { favouritesAtom } from '@/store';
-import { getFavourites } from '@/lib/userData';
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { Card, Form, Button, Alert } from 'react-bootstrap'
+import PageHeader from '@/components/PageHeader'
+import { authenticateUser } from '@/lib/authenticate'
+import { useAtom } from 'jotai'
+import { favouritesAtom } from '@/store'
+import { getFavourites } from '@/lib/userData'
 
 export default function Login() {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [warning, setWarning] = useState('');
-  const router = useRouter();
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const [warning, setWarning] = useState('')
+  const router = useRouter()
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom)
 
-  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
-
-  
   async function updateAtom() {
-    setFavouritesList(await getFavourites());
+    setFavouritesList(await getFavourites())
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setWarning('');
+    e.preventDefault()
+    setWarning('')
 
     try {
-      await authenticateUser(user, password);
-      await updateAtom();
-      router.push('/'); 
+      await authenticateUser(user, password)
+      await updateAtom()
+      router.push('/')
     } catch (err) {
-      setWarning(err.message);
+      setWarning(err.message)
     }
   }
 
@@ -93,5 +91,5 @@ export default function Login() {
         </Card.Body>
       </Card>
     </>
-  );
+  )
 }
